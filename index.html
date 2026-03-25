@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekindle for Men | Premium T-Level Support | CAIM BY ÅRELANG™</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        caim: {
+                            blue: '#244a61',
+                            blue_light: '#315f7c',
+                            blue_dark: '#183140',
+                            cream: '#F5F0E8',
+                            charcoal: '#1A1A1A',
+                            amber: '#C97A3A'
+                        }
+                    },
+                    fontFamily: {
+                        georgia: ['Georgia', 'serif'],
+                        calibri: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #F5F0E8; 
+            color: #1A1A1A; 
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 { 
+            font-family: 'Georgia', 'serif'; 
+            letter-spacing: -0.02em;
+        }
+        
+        /* Micro-Animations & Scroll Effects */
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(30px) scale(0.98); 
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .fade-in.is-visible { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .fade-in-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .fade-in-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Interactive Hover States */
+        .pill-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pill-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(36, 74, 97, 0.4);
+        }
+
+        .hover-lift {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(36, 74, 97, 0.15);
+        }
+
+        .hover-zoom img {
+            transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+        .hover-zoom:hover img {
+            transform: scale(1.05);
+        }
+
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(135deg, #244a61, #C97A3A);
+        }
+
+        /* ── Animated Stat Counter ── */
+        .stat-number { transition: all 0.3s ease; }
+
+        /* ── Ingredient Card Flip ── */
+        .ingredient-card { perspective: 1000px; }
+        .ingredient-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .ingredient-card:hover .ingredient-inner {
+            transform: rotateY(180deg);
+        }
+        .ingredient-front, .ingredient-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.75rem;
+        }
+        .ingredient-back {
+            background-color: #244a61;
+            transform: rotateY(180deg);
+        }
+
+        /* ── Mechanism Step Connector pulse ── */
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .connector-pulse { animation: pulse-line 2s ease-in-out infinite; }
+
+        /* ── Timeline bar draw ── */
+        @keyframes drawBar {
+            from { width: 0%; }
+            to   { width: var(--bar-width); }
+        }
+        .timeline-bar {
+            width: 0%;
+            animation: none;
+        }
+        .timeline-bar.animate {
+            animation: drawBar 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ── Step fade stagger ── */
+        .step-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Glow pulse on stat icons ── */
+        @keyframes iconGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(36,74,97,0.15); }
+            50%       { box-shadow: 0 0 0 12px rgba(36,74,97,0); }
+        }
+        .icon-glow { animation: iconGlow 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- NAVIGATION -->
+    <nav class="w-full relative z-50 bg-caim-cream/95 backdrop-blur-md sticky top-0 border-b border-caim-blue/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+            <!-- Left: Brand Name (desktop only) -->
+            <div class="hidden md:flex items-center flex-1">
+                <span class="text-xs font-bold tracking-[0.2em] text-caim-blue/60 uppercase">Rekindle for Men</span>
+            </div>
+
+            <!-- Center: Official Logo -->
+            <a href="https://arelang.com" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 mx-auto md:mx-0">
+                <img
+                    src="https://arelang.com/cdn/shop/files/CaimbyArelang-logo-300_150x_1b966ad3-b2a3-4fc2-b79b-78de6bc84dbc.png?v=1713887858&width=400"
+                    alt="CAIM by Arelang"
+                    class="h-10 md:h-11 w-auto object-contain"
+                    onerror="this.onerror=null; this.src='Images%20/CaimbyArelang-socialshare.webp';"
+                />
+            </a>
+
+            <!-- Right: CTA Button -->
+            <div class="flex items-center justify-end flex-1">
+                <a href="https://arelang.com/products/rekindle-for-men" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-caim-blue text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wide hover:opacity-90 transition-all duration-300 shadow-md whitespace-nowrap">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>Buy Now</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. HERO -->
+    <header class="relative pt-20 pb-20 md:pb-32 overflow-hidden max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 md:gap-16">
+        <div class="flex-1 fade-in-left text-center md:text-left z-10 w-full">
+            <p class="text-caim-amber font-bold tracking-widest uppercase text-xs md:text-sm mb-4">Science-Backed Precision For Men</p>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 text-caim-charcoal">
+                Reclaim your edge. <br><span class="text-caim-blue inline-block mt-2">Restore your vitality.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-caim-charcoal/80 mb-10 max-w-2xl font-light mx-auto md:mx-0">
+                Rekindle for Men is a one-and-done, root-cause solution. Clinically proven plant-based T-Level boosters, wrapped in a sugar-free dark chocolate ritual.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center md:items-start gap-6 justify-center md:justify-start w-full">
+                <!-- Social Proof & CTA Block -->
+                <div class="flex flex-col text-center sm:text-left w-full sm:w-auto">
+                    <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="pill-btn inline-block bg-caim-blue text-white px-10 py-5 rounded-full text-lg font-bold tracking-wide shadow-xl text-center">
+                        Buy Now
+                    </a>
+                    <p class="text-sm font-bold text-caim-charcoal/80 mt-3 flex items-center justify-center sm:justify-start gap-1">
+                        <span class="text-caim-amber text-lg">★★★★★</span> 4.9/5 from 200,000+ Men
+                    </p>
+                </div>
+                <p class="text-sm text-caim-charcoal/60 mt-0 sm:mt-5 font-medium flex items-center justify-center sm:justify-start gap-2">
+                    <svg class="w-5 h-5 text-caim-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    Risk-free. Plant-Based.
+                </p>
+            </div>
+        </div>
+        <div class="flex-1 relative fade-in-right z-0 w-full max-w-lg mx-auto md:max-w-none">
+            <!-- Hero Premium Photography -->
+            <div class="aspect-square md:aspect-[4/5] lg:aspect-square rounded-[3rem] overflow-hidden bg-white shadow-2xl relative group hover-zoom">
+                <div class="absolute inset-0 bg-gradient-to-tr from-caim-blue/10 to-transparent mix-blend-multiply z-10 pointer-events-none"></div>
+                <img src="Images%20/Rekindle_for_Men_1.webp" alt="Rekindle for Men - Premium Dark Chocolate Square" class="w-full h-full object-cover object-center relative z-0" />
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. TRUST BAR -->
+    <section class="border-y border-caim-blue/10 bg-white py-12 fade-in">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x-0 md:divide-x divide-caim-charcoal/10">
+            <div class="px-4 group cursor-pointer">
+                <h4 class="text-3xl lg:text-4xl text-caim-blue mb-2 font-bold transition-transform transform group-hover:-translate-y-1">200K+</h4>
+                <p class="text-xs lg:text-sm font-bold tracking-wide text-caim-charcoal/70 uppercase">Daily Customers</p>
+            </div>
+            <div class="px-4 group cursor-pointer">
+                <h4 class="text-3xl lg:text-4xl text-caim-blue mb-2 font-bold transition-transform transform group-hover:-translate-y-1">1,000+</h4>
+                <p class="text-xs lg:text-sm font-bold tracking-wide text-caim-charcoal/70 uppercase">Doctors Recommend</p>
+            </div>
+            <div class="px-4 group cursor-pointer">
+                <h4 class="text-3xl lg:text-4xl text-caim-blue mb-2 font-bold transition-transform transform group-hover:-translate-y-1">100%</h4>
+                <p class="text-xs lg:text-sm font-bold tracking-wide text-caim-charcoal/70 uppercase">Sugar-Free</p>
+            </div>
+            <div class="px-4 group cursor-pointer">
+                <h4 class="text-3xl lg:text-4xl text-caim-blue mb-2 font-bold transition-transform transform group-hover:-translate-y-1">Clinical</h4>
+                <p class="text-xs lg:text-sm font-bold tracking-wide text-caim-charcoal/70 uppercase">Proven Botanicals</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 & 4. PROBLEM & REFRAME -->
+    <section class="py-24 md:py-32 bg-caim-cream relative overflow-hidden">
+        <!-- Abstract Background Shape -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-caim-blue/5 blur-[120px]"></div>
+            <div class="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-caim-amber/5 blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in relative z-10">
+            <h2 class="text-4xl md:text-5xl mb-6 leading-tight text-caim-charcoal font-bold">Brain fog. Stubborn belly fat. Exhausted by 6 PM.</h2>
+            <p class="text-xl md:text-2xl text-caim-charcoal/80 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
+                These aren't just signs of getting older. They're flags indicating a deeper shift. From your early 30s, natural T-Levels crash. Modern stress only accelerates the decline.
+            </p>
+            
+            <div class="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-xl text-left border border-caim-blue/10 relative overflow-hidden hover-lift">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-caim-blue/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                
+                <h3 class="text-2xl md:text-3xl text-caim-blue mb-8 font-georgia font-bold">You've tried the quick fixes. Here's why they fail:</h3>
+                <ul class="space-y-6 text-lg text-caim-charcoal/80 mb-12">
+                    <li class="flex items-start group">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform">✗</div> 
+                        <span class="pt-1"><b>Capsules are a chore.</b> You forget them on the counter because your brain associates them with being sick.</span>
+                    </li>
+                    <li class="flex items-start group">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform">✗</div> 
+                        <span class="pt-1"><b>Powders taste like chalk.</b> Forcing down bitter drinks kills the momentum of your health journey.</span>
+                    </li>
+                    <li class="flex items-start group">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform">✗</div> 
+                        <span class="pt-1"><b>Synthetic boosters crash your system.</b> They dump artificial hormones, convincing your body to stop producing its own entirely.</span>
+                    </li>
+                </ul>
+                
+                <div class="border-t border-caim-blue/10 pt-10">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6 gradient-text font-georgia">It’s not your discipline. It’s the format.</h3>
+                    <p class="text-lg md:text-xl text-caim-charcoal/80 leading-relaxed font-light">
+                        When supplements feel like medication, your mind flags them as friction. People don't fail supplements; supplements fail consistency. We engineered Rekindle for Men so your body naturally wants it every day.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PRODUCT INTRO (CANDYCEUTICAL) -->
+    <section class="py-24 md:py-32 bg-caim-blue text-caim-cream relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 md:gap-20 items-center">
+            <div class="order-2 md:order-1 fade-in-left relative w-full">
+                <!-- Premium Product Image -->
+                <div class="aspect-[4/3] rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 shadow-2xl relative hover-zoom">
+                    <img src="Images%20/Rekindle_for_Men_7.webp" alt="Rekindle for Men Box" class="w-full h-full object-cover object-center" />
+                </div>
+            </div>
+            <div class="order-1 md:order-2 fade-in-right w-full text-center md:text-left">
+                <span class="text-caim-amber tracking-widest uppercase text-sm font-bold mb-4 block">A New Benchmark</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl mb-8 text-white font-georgia leading-tight font-bold">Meet the <br>Candyceutical™</h2>
+                <p class="text-lg md:text-xl text-caim-cream/80 mb-10 font-light leading-relaxed">
+                    Rekindle is not a synthetic pill or a sugar-loaded snack. It is an effective, daily functional indulgence. One square of velvety, sugar-free dark chocolate infused with 9 deep-rooted adaptogens.
+                </p>
+                <div class="space-y-6 text-left">
+                    <div class="flex items-start gap-5 bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="w-14 h-14 rounded-full bg-caim-amber/90 flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <i data-lucide="candy" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-white font-georgia mb-1">An Anticipated Ritual</h4>
+                            <p class="text-caim-cream/80 leading-relaxed">A melt-in-the-mouth ganache center. It feels like an indulgence, but acts like medicine. Zero sugar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-5 bg-white/5 p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="w-14 h-14 rounded-full bg-caim-cream text-caim-blue flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <i data-lucide="dna" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-white font-georgia mb-1">Biological Alignment</h4>
+                            <p class="text-caim-cream/80 leading-relaxed">We don't inject hormones. We use Safed Musli & Gokshura to activate your body's own natural production pathways.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center md:text-left">
+                    <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="pill-btn inline-block bg-white text-caim-blue px-10 py-4 rounded-full text-lg font-bold tracking-wide shadow-lg w-full md:w-auto text-center hover:bg-caim-cream">
+                        Buy Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION A: ANIMATED BENEFITS GRID WITH STATS -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="py-24 md:py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-4xl mx-auto mb-20 fade-in">
+                <span class="text-caim-amber font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">What Changes. How Fast.</span>
+                <h2 class="text-4xl md:text-5xl mb-6 text-caim-charcoal font-georgia leading-tight font-bold">Your body already knows<br>how to fix this.</h2>
+                <p class="text-xl text-caim-charcoal/70 font-light max-w-3xl mx-auto">Rekindle doesn't override your biology. It restores it. Every ingredient targets a specific pathway in your hormonal system, with measurable, real-world outcomes.</p>
+            </div>
+
+            <!-- 6-stat animated benefit grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 fade-in" id="benefits-grid">
+
+                <div class="bg-caim-cream rounded-[2rem] p-8 hover-lift border border-caim-blue/5 text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 icon-glow"><i data-lucide="zap" class="w-8 h-8 text-caim-blue"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-caim-blue mb-2 stat-number" data-target="87" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-caim-charcoal/60 uppercase tracking-widest mb-3">Report Higher Energy</p>
+                    <p class="text-sm text-caim-charcoal/70 font-light leading-relaxed hidden md:block">Ginseng & Vidarikand stimulate your body's own energy pathways within days.</p>
+                </div>
+
+                <div class="bg-caim-cream rounded-[2rem] p-8 hover-lift border border-caim-blue/5 text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 icon-glow"><i data-lucide="dumbbell" class="w-8 h-8 text-caim-blue"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-caim-blue mb-2 stat-number" data-target="79" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-caim-charcoal/60 uppercase tracking-widest mb-3">See Strength Gains</p>
+                    <p class="text-sm text-caim-charcoal/70 font-light leading-relaxed hidden md:block">Safed Musli helps convert protein into muscle mass, not fat.</p>
+                </div>
+
+                <div class="bg-caim-cream rounded-[2rem] p-8 hover-lift border border-caim-blue/5 text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 icon-glow"><i data-lucide="brain" class="w-8 h-8 text-caim-blue"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-caim-blue mb-2 stat-number" data-target="91" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-caim-charcoal/60 uppercase tracking-widest mb-3">Sharper Focus</p>
+                    <p class="text-sm text-caim-charcoal/70 font-light leading-relaxed hidden md:block">Saffron & Ginkgo Biloba clear the mental haze and reduce cortisol-induced fog.</p>
+                </div>
+
+                <div class="bg-caim-blue rounded-[2rem] p-8 hover-lift text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center shadow-sm mb-6"><i data-lucide="moon" class="w-8 h-8 text-white"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2 stat-number" data-target="83" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-white/60 uppercase tracking-widest mb-3">Better Sleep Quality</p>
+                    <p class="text-sm text-white/75 font-light leading-relaxed hidden md:block">Ashwagandha & Jaiphal lower cortisol, letting your body shift into deep recovery sleep.</p>
+                </div>
+
+                <div class="bg-caim-blue rounded-[2rem] p-8 hover-lift text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center shadow-sm mb-6"><i data-lucide="flame" class="w-8 h-8 text-white"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2 stat-number" data-target="74" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-white/60 uppercase tracking-widest mb-3">Reduced Belly Fat</p>
+                    <p class="text-sm text-white/75 font-light leading-relaxed hidden md:block">Lower cortisol + higher T = your body burns visceral fat instead of storing it.</p>
+                </div>
+
+                <div class="bg-caim-blue rounded-[2rem] p-8 hover-lift text-center group">
+                    <div class="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center shadow-sm mb-6"><i data-lucide="heart-pulse" class="w-8 h-8 text-white"></i></div>
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2 stat-number" data-target="88" data-suffix="%">0%</div>
+                    <p class="text-sm font-bold text-white/60 uppercase tracking-widest mb-3">Improved Drive & Mood</p>
+                    <p class="text-sm text-white/75 font-light leading-relaxed hidden md:block">Kapikacchu delivers L-DOPA, boosting dopamine — the confidence & motivation molecule.</p>
+                </div>
+
+            </div>
+            <p class="text-center text-xs text-caim-charcoal/40 mt-6 font-medium">*Based on internal user surveys from 200,000+ customers across 8–12 weeks of use.</p>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- SECTION B: HOW IT WORKS — 6-STEP MECHANISM FLOW -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="py-24 md:py-32 bg-caim-cream relative overflow-hidden" id="how-it-works">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 right-0 w-[40%] h-[60%] bg-caim-blue/5 rounded-full blur-[150px]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 fade-in">
+                <span class="text-caim-amber font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">The Mechanism</span>
+                <h2 class="text-4xl md:text-5xl mb-6 text-caim-charcoal font-georgia leading-tight font-bold">6 steps. One square.<br>Your biology, restored.</h2>
+                <p class="text-xl text-caim-charcoal/70 font-light">Rekindle works across your entire hormonal system, from brain signal to hormone release, in one clinically-aligned stack.</p>
+            </div>
+
+            <!-- Desktop: horizontal flow / Mobile: vertical stack -->
+            <div class="relative">
+                <!-- Connecting line (desktop only) -->
+                <div class="hidden md:block absolute top-[3.5rem] left-[8%] right-[8%] h-px bg-caim-blue/20 connector-pulse"></div>
+
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-6 md:gap-4 relative z-10">
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0s">
+                        <div class="w-16 h-16 rounded-full bg-caim-blue flex items-center justify-center text-white font-bold text-xl shadow-lg mb-4 relative">
+                            <span>1</span>
+                            <div class="absolute -inset-1 rounded-full border-2 border-caim-blue/30 animate-ping" style="animation-duration: 3s;"></div>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-blue text-sm mb-2">Boost Precursors</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Safed Musli &amp; Gokshura raise DHEA, the raw material T-Levels are built from.</p>
+                    </div>
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0.1s">
+                        <div class="w-16 h-16 rounded-full bg-caim-blue flex items-center justify-center text-white font-bold text-xl shadow-lg mb-4 relative">
+                            <span>2</span>
+                            <div class="absolute -inset-1 rounded-full border-2 border-caim-blue/30 animate-ping" style="animation-duration: 3.3s;"></div>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-blue text-sm mb-2">Trigger Release</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Vidarikand &amp; Ginseng stimulate LH, the brain signal that commands T-production.</p>
+                    </div>
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0.2s">
+                        <div class="w-16 h-16 rounded-full bg-caim-blue flex items-center justify-center text-white font-bold text-xl shadow-lg mb-4 relative">
+                            <span>3</span>
+                            <div class="absolute -inset-1 rounded-full border-2 border-caim-blue/30 animate-ping" style="animation-duration: 3.6s;"></div>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-blue text-sm mb-2">Block Breakdown</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Ashwagandha blocks aromatase, the enzyme converting T into estrogen or DHT.</p>
+                    </div>
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0.3s">
+                        <div class="w-16 h-16 rounded-full bg-caim-blue flex items-center justify-center text-white font-bold text-xl shadow-lg mb-4 relative">
+                            <span>4</span>
+                            <div class="absolute -inset-1 rounded-full border-2 border-caim-blue/30 animate-ping" style="animation-duration: 3.9s;"></div>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-blue text-sm mb-2">Amplify Sensitivity</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Gokshura increases androgen receptor activity, so the T you make actually works.</p>
+                    </div>
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0.4s">
+                        <div class="w-16 h-16 rounded-full bg-caim-blue flex items-center justify-center text-white font-bold text-xl shadow-lg mb-4 relative">
+                            <span>5</span>
+                            <div class="absolute -inset-1 rounded-full border-2 border-caim-blue/30 animate-ping" style="animation-duration: 4.2s;"></div>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-blue text-sm mb-2">Remove Suppressors</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Kapikacchu removes prolactin, the hidden hormone that quietly crushes male drive.</p>
+                    </div>
+
+                    <div class="step-item flex flex-col items-center text-center" style="transition-delay: 0.5s">
+                        <div class="w-16 h-16 rounded-full bg-caim-amber flex items-center justify-center text-white shadow-lg mb-4 relative">
+                            <i data-lucide="check" class="w-7 h-7"></i>
+                        </div>
+                        <h4 class="font-georgia font-bold text-caim-amber text-sm mb-2">Boost Mood &amp; Drive</h4>
+                        <p class="text-xs text-caim-charcoal/60 leading-relaxed">Saffron &amp; Ginkgo Biloba elevate dopamine, the neurotransmitter of confidence and clarity.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════ -->
+    <!-- SECTION C: INGREDIENT FLIP CARDS         -->
+    <!-- ═════════════════════════════════════════ -->
+    <section class="py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20 fade-in">
+                <span class="text-caim-amber font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">The Ingredient Science</span>
+                <h2 class="text-4xl md:text-5xl mb-6 text-caim-charcoal font-georgia leading-tight font-bold">9 botanicals. One purpose.</h2>
+                <p class="text-xl text-caim-charcoal/70 font-light">Hover each ingredient to reveal the science. No pharma jargon. Just what it does and why you need it.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 fade-in">
+
+                <!-- Ingredient 1 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="shield" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Ashwagandha</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">Adaptogen</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Blocks aromatase enzymes, lowers cortisol, and raises free testosterone. The trifecta for male hormone health."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredient 2 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="flame" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Safed Musli</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">Aphrodisiac Herb</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Boosts DHEA production, giving your body the raw hormonal building blocks for strength, stamina, and reproductive health."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredient 3 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="activity" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Gokshura</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">Testosterone Amplifier</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Stimulates LH secretion from the brain and increases androgen receptor density, so your testosterone is both higher and more effective."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredient 4 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="sparkles" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Saffron</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">Mood Regulator</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Clinically studied to elevate dopamine and serotonin, restoring the sense of confidence, optimism, and mental drive that declining hormones erode."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredient 5 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="brain" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Kapikacchu</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">L-DOPA Source</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Rich in L-DOPA, a direct precursor to dopamine. It suppresses prolactin and revives your energy, libido, and sense of motivation."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingredient 6 -->
+                <div class="ingredient-card h-52 md:h-60 cursor-pointer">
+                    <div class="ingredient-inner">
+                        <div class="ingredient-front bg-caim-cream border border-caim-blue/10 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                <i data-lucide="eye" class="w-7 h-7 text-caim-blue"></i>
+                            </div>
+                            <h4 class="font-georgia font-bold text-caim-blue text-lg">Ginkgo Biloba</h4>
+                            <p class="text-xs text-caim-charcoal/50 mt-2 font-medium uppercase tracking-wider">Cognitive Enhancer</p>
+                        </div>
+                        <div class="ingredient-back text-center">
+                            <p class="text-white font-georgia italic text-base leading-relaxed">"Improves cerebral blood flow and combats oxidative stress in the brain, restoring sharp focus and clearing the mental fog low T creates."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <p class="text-center text-sm text-caim-charcoal/50 mt-6 font-medium italic">↕ Hover an ingredient card to reveal its clinical role.</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION D: WEEK-BY-WEEK RESULTS TIMELINE       -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="py-24 md:py-32 bg-caim-blue relative overflow-hidden" id="timeline-section">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[60%] bg-white/5 rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 right-0 w-[40%] h-[40%] bg-caim-amber/10 rounded-full blur-[100px]"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-in">
+                <span class="text-caim-amber font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block">Your 12-Week Comeback</span>
+                <h2 class="text-4xl md:text-5xl mb-6 text-white font-georgia font-bold leading-tight">Not overnight.<br>But faster than you think.</h2>
+                <p class="text-xl text-caim-cream/70 font-light max-w-2xl mx-auto">Consistency is the only requirement. Rekindle does the rest, systematically, week by week.</p>
+            </div>
+
+            <div class="space-y-8" id="timeline-bars">
+
+                <div class="timeline-row fade-in">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <span class="text-caim-amber font-bold text-sm uppercase tracking-widest">Week 1–2</span>
+                            <h4 class="text-white font-georgia font-bold text-xl mt-0.5">Energy & Morning Drive</h4>
+                        </div>
+                        <span class="text-white/50 font-medium text-sm">Early gains</span>
+                    </div>
+                    <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                        <div class="timeline-bar h-full bg-gradient-to-r from-caim-amber to-caim-amber/60 rounded-full" style="--bar-width: 28%"></div>
+                    </div>
+                    <p class="text-caim-cream/60 text-sm mt-2">Notice more get-up-and-go. Workouts feel less forced. Morning fog lifts earlier.</p>
+                </div>
+
+                <div class="timeline-row fade-in">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <span class="text-caim-amber font-bold text-sm uppercase tracking-widest">Week 3–4</span>
+                            <h4 class="text-white font-georgia font-bold text-xl mt-0.5">Focus & Sleep Quality</h4>
+                        </div>
+                        <span class="text-white/50 font-medium text-sm">Deepening</span>
+                    </div>
+                    <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                        <div class="timeline-bar h-full bg-gradient-to-r from-caim-amber to-caim-amber/60 rounded-full" style="--bar-width: 50%"></div>
+                    </div>
+                    <p class="text-caim-cream/60 text-sm mt-2">Sharper mental clarity sets in. You fall asleep faster and wake up actually rested.</p>
+                </div>
+
+                <div class="timeline-row fade-in">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <span class="text-caim-amber font-bold text-sm uppercase tracking-widest">Week 5–8</span>
+                            <h4 class="text-white font-georgia font-bold text-xl mt-0.5">Stamina, Strength & Mood</h4>
+                        </div>
+                        <span class="text-white/50 font-medium text-sm">Visible shift</span>
+                    </div>
+                    <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                        <div class="timeline-bar h-full bg-gradient-to-r from-caim-amber to-white/80 rounded-full" style="--bar-width: 72%"></div>
+                    </div>
+                    <p class="text-caim-cream/60 text-sm mt-2">Gym gains feel real. Your drive is back. The belly feels less stubborn. Confidence returns.</p>
+                </div>
+
+                <div class="timeline-row fade-in">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <span class="text-caim-amber font-bold text-sm uppercase tracking-widest">Week 9–12</span>
+                            <h4 class="text-white font-georgia font-bold text-xl mt-0.5">Hormonal Balance Restored</h4>
+                        </div>
+                        <span class="text-white/50 font-medium text-sm">Full transformation</span>
+                    </div>
+                    <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                        <div class="timeline-bar h-full bg-gradient-to-r from-caim-amber via-white to-white rounded-full" style="--bar-width: 95%"></div>
+                    </div>
+                    <p class="text-caim-cream/60 text-sm mt-2">You're leaner, clearer, more energized. Stress is background noise. This is who you were meant to be.</p>
+                </div>
+
+            </div>
+
+            <div class="mt-16 text-center fade-in">
+                <a href="https://arelang.com/products/rekindle-for-men" target="_blank" rel="noopener noreferrer" class="pill-btn inline-block bg-white text-caim-blue px-12 py-5 rounded-full text-xl font-bold tracking-wide shadow-2xl hover:bg-caim-cream">
+                    Start Week 1 Today
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. SOCIAL PROOF & REAL EXPERIENCES -->
+    <section class="py-24 md:py-32 bg-caim-cream border-t border-caim-blue/10">
+        <div class="max-w-7xl mx-auto px-6 fade-in">
+            <span class="text-caim-amber font-bold tracking-widest uppercase text-xs sm:text-sm mb-4 block text-center">Unfiltered Reviews</span>
+            <h2 class="text-4xl md:text-5xl mb-16 text-center text-caim-charcoal font-georgia font-bold">For the men who keep going.</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-caim-blue/5 hover-lift">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex text-caim-amber text-xl">
+                            ★★★★★
+                        </div>
+                        <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full border border-green-200">Verified Buyer</span>
+                    </div>
+                    <p class="text-xl text-caim-charcoal/90 mb-8 font-georgia italic leading-relaxed font-medium">"I didn't realize how much of my sluggishness was just poor hormone balance. The afternoon slump is gone. What I love most? It’s not a chore. Having a square of an Espresso Shot chocolate after lunch is the highlight of my diet."</p>
+                    <div class="flex items-center gap-4 border-t border-caim-blue/10 pt-6">
+                        <div class="w-12 h-12 rounded-full bg-caim-cream flex items-center justify-center font-bold text-caim-blue text-lg border border-caim-blue/10">RM</div>
+                        <div>
+                            <p class="font-bold text-caim-charcoal">Rohan M.</p>
+                            <p class="text-sm text-caim-charcoal/60">38, Mumbai</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-caim-blue/5 hover-lift">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex text-caim-amber text-xl">
+                            ★★★★★
+                        </div>
+                        <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full border border-green-200">Verified Buyer</span>
+                    </div>
+                    <p class="text-xl text-caim-charcoal/90 mb-8 font-georgia italic leading-relaxed font-medium">"I tried testosterone boosters before and hated the aggressive jolts and crashes. Rekindle feels entirely different. It feels like calm, steady stamina. I’m lifting heavier again and my brain fog at work has fully cleared."</p>
+                    <div class="flex items-center gap-4 border-t border-caim-blue/10 pt-6">
+                        <div class="w-12 h-12 rounded-full bg-caim-cream flex items-center justify-center font-bold text-caim-blue text-lg border border-caim-blue/10">SK</div>
+                        <div>
+                            <p class="font-bold text-caim-charcoal">Siddharth K.</p>
+                            <p class="text-sm text-caim-charcoal/60">42, Bangalore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="pill-btn inline-block bg-caim-blue text-white px-10 py-5 rounded-full text-lg font-bold tracking-wide shadow-xl text-center">
+                    Buy Now and Join Them
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. OBJECTION HANDLING (FAQ) -->
+    <section class="py-24 md:py-32 bg-white fade-in">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl mb-16 text-center text-caim-charcoal font-georgia font-bold">The Burning Questions.</h2>
+            
+            <div class="space-y-6">
+                <!-- FAQ 1 -->
+                <div class="bg-caim-cream/50 p-8 rounded-2xl border border-caim-charcoal/5 cursor-pointer hover:border-caim-blue/30 hover:bg-white hover:shadow-lg transition-all duration-300 group" onclick="toggleFaq(this)">
+                    <h4 class="text-xl md:text-2xl font-georgia text-caim-blue flex justify-between items-center font-bold">Does higher T increase baldness risk? <span class="text-3xl font-light text-caim-amber transition-transform transform group-hover:scale-110">+</span></h4>
+                    <p class="hidden text-lg text-caim-charcoal/80 pt-4 border-t border-caim-charcoal/10 mt-6 leading-relaxed">This is the biggest myth out there! Baldness has more to do with genetics and follicle sensitivity. Rekindle corrects hormonal imbalances and supports natural boundaries, never pushing you into dangerous, unnatural spikes.</p>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="bg-caim-cream/50 p-8 rounded-2xl border border-caim-charcoal/5 cursor-pointer hover:border-caim-blue/30 hover:bg-white hover:shadow-lg transition-all duration-300 group" onclick="toggleFaq(this)">
+                    <h4 class="text-xl md:text-2xl font-georgia text-caim-blue flex justify-between items-center font-bold">How soon will I feel the difference? <span class="text-3xl font-light text-caim-amber transition-transform transform group-hover:scale-110">+</span></h4>
+                    <p class="hidden text-lg text-caim-charcoal/80 pt-4 border-t border-caim-charcoal/10 mt-6 leading-relaxed">Most men notice improved energy and mood within 10–15 days. Meaningful drops in belly fat, along with heightened strength and stamina, deeply set in after 4–8 weeks of consistency. Consistency is key.</p>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="bg-caim-cream/50 p-8 rounded-2xl border border-caim-charcoal/5 cursor-pointer hover:border-caim-blue/30 hover:bg-white hover:shadow-lg transition-all duration-300 group" onclick="toggleFaq(this)">
+                    <h4 class="text-xl md:text-2xl font-georgia text-caim-blue flex justify-between items-center font-bold">Is it safe for long-term use? <span class="text-3xl font-light text-caim-amber transition-transform transform group-hover:scale-110">+</span></h4>
+                    <p class="hidden text-lg text-caim-charcoal/80 pt-4 border-t border-caim-charcoal/10 mt-6 leading-relaxed">Absolutely. Rekindle is 100% plant-based and non-habit forming. We designed it specifically for daily, lifetime support—not a sudden, short-lived lift that burns out your adrenals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. OFFER STACK -->
+    <section id="offer" class="py-24 md:py-32 bg-caim-cream pattern-bg fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 md:mb-24">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl text-caim-charcoal mb-6 font-georgia font-bold">Choose your ritual.</h2>
+                <p class="text-xl text-caim-charcoal/70 max-w-2xl mx-auto font-medium">Available in 3 indulgent sugar-free flavors: Espresso Shot, Toasty Hazelnut, & Brazilian Orange Zest.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 md:gap-6 lg:gap-10 items-end">
+                <!-- Trial Pack -->
+                <div class="bg-white border border-transparent rounded-[2.5rem] p-8 text-center hover:border-caim-blue/40 shadow-xl hover:shadow-2xl transition-all duration-500 hover-lift overflow-hidden group relative">
+                    <div class="w-full h-40 mb-6 rounded-2xl overflow-hidden bg-caim-cream/50 p-2">
+                        <img src="Images%20/Rekindle_for_Men_8.webp" alt="Trial Pack" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-georgia text-caim-charcoal mb-2 font-bold">The Trial Box</h3>
+                    <p class="text-caim-charcoal/60 mb-6 text-sm font-bold uppercase tracking-widest">1 Month Supply</p>
+                    <div class="text-4xl font-bold mb-8 text-caim-blue">₹1,800</div>
+                    <ul class="text-md text-left text-caim-charcoal/80 space-y-4 mb-10 font-medium">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> See early energy shifts</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Choose your flavor</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Free Shipping</li>
+                    </ul>
+                    <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="block w-full py-5 rounded-full border-2 border-caim-charcoal/10 font-bold text-caim-charcoal hover:bg-caim-blue hover:border-caim-blue hover:text-white transition-all text-lg">Buy Now</a>
+                </div>
+
+                <!-- Recommended Pack -->
+                <div class="bg-caim-blue rounded-[2.5rem] p-8 lg:p-10 text-center relative shadow-2xl transform md:-translate-y-8 hover-lift group" style="border: 1px solid #183140;">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-caim-amber text-white px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">Doctor Recommended</div>
+                    <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-white/5 p-2">
+                        <img src="Images%20/Men_s_Product_Image_ESPRESSO_Pack_0f_3.webp" alt="Espresso Pack of 3" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-3xl font-georgia text-white mb-2 font-bold">The Comeback</h3>
+                    <p class="text-caim-cream/60 mb-6 text-sm font-bold uppercase tracking-widest">3 Month Supply</p>
+                    <div class="text-5xl font-bold text-white mb-2">₹4,860</div>
+                    <p class="text-caim-amber text-sm font-bold tracking-wide uppercase mb-8">Save 10% (Most Popular)</p>
+                    <ul class="text-md text-left text-caim-cream/90 space-y-4 mb-10 font-bold">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Target stubborn visceral fat</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Full stamina & drive recovery</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-amber mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Included Priority Shipping</li>
+                    </ul>
+                    <a href="https://arelang.com/products/rekindle-for-men" target="_blank" rel="noopener noreferrer" class="pill-btn block w-full py-5 rounded-full bg-caim-amber text-white font-bold text-lg hover:opacity-90 transition-all shadow-lg">Buy Now</a>
+                    <p class="text-xs text-white/50 mt-5 font-medium">8–12 weeks is required for deep hormonal balance.</p>
+                </div>
+
+                <!-- Value Pack -->
+                <div class="bg-white border border-transparent rounded-[2.5rem] p-8 text-center hover:border-caim-blue/40 shadow-xl hover:shadow-2xl transition-all duration-500 hover-lift overflow-hidden group">
+                    <div class="w-full h-40 mb-6 rounded-2xl overflow-hidden bg-caim-cream/50 p-2">
+                        <img src="Images%20/Men_s_Product_Image_Hazelnut_Pack_0f_6.webp" alt="Hazelnut Pack of 6" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-georgia text-caim-charcoal mb-2 font-bold">The Lifestyle</h3>
+                    <p class="text-caim-charcoal/60 mb-6 text-sm font-bold uppercase tracking-widest">6 Month Supply</p>
+                    <div class="text-4xl font-bold mb-2 text-caim-blue">₹8,640</div>
+                    <p class="text-caim-amber text-sm font-bold tracking-wide uppercase mb-8">Save 20%</p>
+                    <ul class="text-md text-left text-caim-charcoal/80 space-y-4 mb-10 font-medium">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-blue mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> The ultimate maintenance</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-blue mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Never run out</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-caim-blue mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Free VIP Shipping</li>
+                    </ul>
+                    <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="block w-full py-5 rounded-full border-2 border-caim-charcoal/10 font-bold text-caim-charcoal hover:bg-caim-blue hover:border-caim-blue hover:text-white transition-all text-lg">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. FINAL CTA & FOOTER -->
+    <footer class="bg-caim-blue text-white py-24 md:py-32 text-center border-t border-white/10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-0"></div>
+        <div class="absolute -top-[50%] -left-[10%] w-[60%] h-[150%] bg-caim-amber/10 blur-[150px] rotate-45 pointer-events-none"></div>
+        
+        <div class="max-w-3xl mx-auto px-6 relative z-10 fade-in">
+            <h2 class="text-5xl md:text-7xl font-georgia mb-6 leading-[1.1] font-bold">Stop forcing habits.<br><span class="text-caim-amber italic font-medium">Start enjoying them.</span></h2>
+            <p class="text-xl md:text-2xl text-caim-cream/80 mb-12 font-medium">Feel like yourself again. It only takes one square a day.</p>
+            <a href="https://arelang.com/products/rekindle-for-men" target="_blank" class="pill-btn inline-block bg-white text-caim-blue px-14 py-6 rounded-full text-xl font-bold tracking-wide shadow-2xl hover:bg-caim-cream">
+                Buy Rekindle Now
+            </a>
+            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-caim-cream/80 font-bold tracking-wide uppercase">
+                <span class="flex items-center"><svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg> Secure 256-bit Encrypted Checkout</span>
+                <span class="hidden md:inline">•</span>
+                <span>100% Plant-Based Botanicals</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERSECTION OBSERVER + ALL ANIMATION CONTROLLERS -->
+    <script>
+        // ── FAQ Accordion ──
+        function toggleFaq(el) {
+            const p = el.querySelector('p');
+            const s = el.querySelector('span');
+            p.classList.toggle('hidden');
+            s.textContent = p.classList.contains('hidden') ? '+' : '-';
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ── 1. General Fade Observer ──
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+                fadeObserver.observe(el);
+            });
+
+            // Stagger only direct grid children within the same parent
+            document.querySelectorAll('.grid').forEach((grid) => {
+                const children = Array.from(grid.querySelectorAll('.hover-lift'));
+                children.forEach((child, i) => {
+                    child.style.transitionDelay = `${i * 0.08}s`;
+                });
+            });
+
+            // ── 2. Animated Stat Counter ──
+            function animateCounter(el) {
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.dataset.suffix || '';
+                let current = 0;
+                const increment = Math.ceil(target / 60);
+                const timer = setInterval(() => {
+                    current = Math.min(current + increment, target);
+                    el.textContent = current + suffix;
+                    if (current >= target) clearInterval(timer);
+                }, 20);
+            }
+
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        statObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+                statObserver.observe(el);
+            });
+
+            // ── 3. Step items in mechanism section ──
+            const stepObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.step-item').forEach(el => stepObserver.observe(el));
+
+            // ── 4. Timeline bars draw on scroll ──
+            const barObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target.querySelector('.timeline-bar');
+                        if (bar) bar.classList.add('animate');
+                        barObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            document.querySelectorAll('.timeline-row').forEach(row => barObserver.observe(row));
+
+        });
+
+        // ── Initialize Lucide Icons ──
+        // Must run after DOM is ready so all data-lucide elements exist
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+
+    <!-- Lucide Icons CDN (loaded at end of body for DOM availability) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" onload="lucide.createIcons()"></script>
+
+</body>
+</html>

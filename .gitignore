@@ -1,0 +1,6 @@
+# Agent / IDE files
+.agent/
+
+# OS
+.DS_Store
+Thumbs.db
